@@ -3,7 +3,6 @@
 #' @param maffile The name of mutation annotation file (MAF) format data. It must be an absolute path or the name  relatived to the current working directory.
 #' @param mutcell.summary The result of `mutcellsummary` function
 #' @param cellnumcuoff a threshold value (4 as the default value). The mutation genes which drive at least "cellnumcuoff" cells are retained for drawing an waterfall.
-#' @param fill Logical. If TRUE draws genes and samples as blank grids even when they are not altered.
 #' @importFrom maftools oncoplot
 #' @importFrom maftools read.maf
 #' @export
@@ -28,13 +27,12 @@
 #'
 #' #plot the waterfall for mutation genes which drive immune cells
 #' \donttest{plotwaterfall(maffile = maf,mutcell.summary = summary,cellnumcuoff =0)}
-plotwaterfall <- function(maffile,mutcell.summary,cellnumcuoff=3,fill=TRUE) {
+plotwaterfall <- function(maffile,mutcell.summary,cellnumcuoff=3) {
   ## requireNamespace("maftools")|| stop("package maftools is required,please install package maftools")
   gene.top<-mutcell.summary[which(mutcell.summary[,"count"]>=cellnumcuoff),1]
   maf<-read.maf(maf = maffile)
   oncoplot(maf = maf,
            genes = gene.top,
-           fill = fill,
            fontSize = 0.8 ,
            showTumorSampleBarcodes = F)
 }

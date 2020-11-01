@@ -4,7 +4,7 @@
 \alias{plotwaterfall}
 \title{plotwaterfall}
 \usage{
-plotwaterfall(maffile, mutcell.summary, cellnumcuoff = 3, fill = TRUE)
+plotwaterfall(maffile, mutcell.summary, cellnumcuoff = 3)
 }
 \arguments{
 \item{maffile}{The name of mutation annotation file (MAF) format data. It must be an absolute path or the name  relatived to the current working directory.}
@@ -12,8 +12,6 @@ plotwaterfall(maffile, mutcell.summary, cellnumcuoff = 3, fill = TRUE)
 \item{mutcell.summary}{The result of `mutcellsummary` function}
 
 \item{cellnumcuoff}{a threshold value (4 as the default value). The mutation genes which drive at least "cellnumcuoff" cells are retained for drawing an waterfall.}
-
-\item{fill}{Logical. If TRUE draws genes and samples as blank grids even when they are not altered.}
 }
 \description{
 Function ‘plotwaterfall‘ plots the waterfall for mutation genes which drive immune cells.
