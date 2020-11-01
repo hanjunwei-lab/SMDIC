@@ -67,10 +67,11 @@ exp.example<-GetExampleData("exp.example")
 # perform the exp2cell method. The method must be one of "xCell","ssGSEA" and "CIBERSORT".
 cellmatrix.example<-exp2cell(exp.example,method="ssGSEA")
 
+```
+```{r}
 #get the result of the exp2cell function
 #view the first six rows and six columns of the cell abundance matrix.
-cellmatrix.example[1:6,1:6]
-
+head(cellmatrix.example)
 ```
 
 
