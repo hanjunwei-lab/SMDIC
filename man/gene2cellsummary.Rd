@@ -14,12 +14,15 @@ gene2cellsummary(gene, method = "xCell", mutcell)
 \item{mutcell}{The result of `mutcorcell` funtion.}
 }
 \value{
-A matrix shows the short name, full name, pvalue, fdr of the cells driven by a somatic mutation
+A matrix shows the short name, full name, pvalue, fdr, cell responses(up or down) of the cells driven by a somatic mutation.
 }
 \description{
 Function `gene2cellsummary` is a generic function used to produce result summaries of the immune cells driven by a somatic mutation.
 }
 \examples{
-mutcell<-GetExampleData("mutcell") # The result of `mutcorcell` funtion.
+# get the result of `mutcorcell` funtion.
+mutcell<-GetExampleData("mutcell")
+
+# perform the function gene2cellsummary
 genecellsummary<-gene2cellsummary(gene="TP53",mutcell=mutcell)
 }

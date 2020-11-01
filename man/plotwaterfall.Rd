@@ -4,7 +4,7 @@
 \alias{plotwaterfall}
 \title{plotwaterfall}
 \usage{
-plotwaterfall(maffile, mutcell.summary, cellnumcuoff = 4)
+plotwaterfall(maffile, mutcell.summary, cellnumcuoff = 3, fill = TRUE)
 }
 \arguments{
 \item{maffile}{The name of mutation annotation file (MAF) format data. It must be an absolute path or the name  relatived to the current working directory.}
@@ -12,11 +12,31 @@ plotwaterfall(maffile, mutcell.summary, cellnumcuoff = 4)
 \item{mutcell.summary}{The result of `mutcellsummary` function}
 
 \item{cellnumcuoff}{a threshold value (4 as the default value). The mutation genes which drive at least "cellnumcuoff" cells are retained for drawing an waterfall.}
+
+\item{fill}{Logical. If TRUE draws genes and samples as blank grids even when they are not altered.}
 }
 \description{
-Function‘plotwaterfall‘ plots the waterfall for mutation genes which drive immune cells.
+Function ‘plotwaterfall‘ plots the waterfall for mutation genes which drive immune cells.
 }
 \examples{
-file<-"dir" #dir must be an absolute path or the name  relatived to the current working directory.
-\dontrun{plotwaterfall(maffile = dir,mutcell.summary = summary,cellnumcuoff =0)}
+# get result of `exp2cell` funtion
+cellmatrix<-GetExampleData("cellmatrix")
+
+#get the binary mutations matrix,
+mutmatrix<-GetExampleData("mutmatrix")
+
+# get the result of `mutcorcell` funtion
+mutcell<-GetExampleData("mutcell")
+
+#perform the function mutcellsummary
+summary<-mutcellsummary(mutcell = mutcell,mutmatrix = mutmatrix,cellmatrix=cellmatrix)
+
+#dir is the name of mutation annotation file (MAF) format data.
+#It must be an absolute path or the name relatived to the current working directory.
+# maf<-"dir"
+
+# mutcell.summary is the result of function mutcellsummary
+
+#plot the waterfall for mutation genes which drive immune cells
+\donttest{plotwaterfall(maffile = maf,mutcell.summary = summary,cellnumcuoff =0)}
 }

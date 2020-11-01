@@ -21,7 +21,8 @@ Function `maf2matrix` use mutation annotation file (MAF) format data to build a 
 }
 \examples{
 #get path of the mutation annotation file.
-maf = system.file('extdata', 'example.maf', package = 'SMDIC')
+maf = system.file('extdata', 'example.maf.gz', package = 'SMDIC')
+
 # perform function `maf2matrix`.
 mutmatrix.example<-maf2matrix(maf)
 }

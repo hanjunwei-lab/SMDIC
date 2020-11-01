@@ -4,7 +4,18 @@
 \alias{heatmapcell}
 \title{heatmapcell}
 \usage{
-heatmapcell(gene, mutcell, cellmatrix, mutmatrix)
+heatmapcell(
+  gene,
+  mutcell,
+  cellmatrix,
+  mutmatrix,
+  main = NA,
+  show_rownames = TRUE,
+  show_colnames = FALSE,
+  annotation_colors = NA,
+  annotation_row = NA,
+  annotation_col = NA
+)
 }
 \arguments{
 \item{gene}{Somatic mutant gene name}
@@ -13,14 +24,33 @@ heatmapcell(gene, mutcell, cellmatrix, mutmatrix)
 
 \item{cellmatrix}{Cell abundance matrix, cellmatrix is the result of function `exp2cell`.}
 
-\item{mutmatrix}{A binary mutations matrix, in which 1 represents any mutation occurs in a particular gene in a particular sample, otherwise the element is 0.}
+\item{mutmatrix}{A binary mutations matrix, which can not only come from the maf2matrix function, but also any binary mutations matrix, in which 1 represents any mutation occurs in a particular gene in a particular sample, otherwise the element is 0.}
+
+\item{main}{The title of the plot}
+
+\item{show_rownames}{boolean specifying if column names are be shown.}
+
+\item{show_colnames}{boolean specifying if column names are be shown.}
+
+\item{annotation_colors}{list for specifying annotation_row and annotation_col track colors manually. It is possible to define the colors for only some of the features. Check examples for details.}
+
+\item{annotation_row}{data frame that specifies the annotations shown on left side of the heatmap. Each row defines the features for a specific row. The rows in the data and in the annotation are matched using corresponding row names. Note that color schemes takes into account if variable is continuous or discrete.}
+
+\item{annotation_col}{similar to annotation_row, but for columns.}
 }
 \description{
 A function to draw clustered heatmaps for the cells driven by a somatic mutation.
 }
 \examples{
-mutcell<-GetExampleData("mutcell") # The result of `mutcorcell` function.
-cellmatrix<-GetExampleData("cellmatrix") # Cell abundance matrix
-mutmatrix<-GetExampleData("mutmatrix") # A binary mutations matrix
+#get the result of `mutcorcell` function.
+mutcell<-GetExampleData("mutcell")
+
+#get cell abundance matrix which is the result of exp2cell function
+cellmatrix<-GetExampleData("cellmatrix")
+
+#get the binary mutations matrix
+mutmatrix<-GetExampleData("mutmatrix")
+
+# plot significant up-regulation or down-regulation cells heat map specific for breast cancer
 heatmapcell(gene = "TP53",mutcell = mutcell,cellmatrix = cellmatrix,mutmatrix = mutmatrix)
 }

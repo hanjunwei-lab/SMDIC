@@ -9,7 +9,7 @@ mutcellsummary(mutcell, mutmatrix, cellmatrix)
 \arguments{
 \item{mutcell}{The result of `mutcorcell` funtion.}
 
-\item{mutmatrix}{A binary mutations,in which 1 represents any mutation occurs in a particular gene in a particular sample, otherwise the element is 0. matrix}
+\item{mutmatrix}{A binary mutations matrix, which can not only come from the maf2matrix function, but also any binary mutations matrix, in which 1 represents any mutation occurs in a particular gene in a particular sample, otherwise the element is 0.}
 
 \item{cellmatrix}{Cell abundance matrix}
 }
@@ -20,8 +20,15 @@ The result summaries have four columns. The first column is somatic mutant gene 
 Function `mutcellsummary` is a generic function used to produce summaries of the results of `mutcorcell` function.
 }
 \examples{
-mutcell<-GetExampleData("mutcell") # The result of `mutcorcell` funtion
-cellmatrix<-GetExampleData("cellmatrix") # Cell abundance matrix
+# get result of `mutcorcell` funtion
+mutcell<-GetExampleData("mutcell")
+
+#get cell abundance matrix which is the result of exp2cell function
+cellmatrix<-GetExampleData("cellmatrix")
+
+# get the binary mutations matrix
 mutmatrix<-GetExampleData("mutmatrix") # A binary mutations matrix
+
+#perform the function mutcellsummary
 summary<-mutcellsummary(mutcell = mutcell,mutmatrix = mutmatrix,cellmatrix=cellmatrix)
 }

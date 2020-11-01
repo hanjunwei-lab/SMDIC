@@ -4,7 +4,7 @@
 \alias{plotCoocMutex}
 \title{plotCoocMutex}
 \usage{
-plotCoocMutex(maffile, mutcell.summary, cellnumcuoff = 4)
+plotCoocMutex(maffile, mutcell.summary, cellnumcuoff = 3)
 }
 \arguments{
 \item{maffile}{The name of mutation annotation file (MAF) format data. It must be an absolute path or the name  relatived to the current working directory.}
@@ -17,12 +17,23 @@ plotCoocMutex(maffile, mutcell.summary, cellnumcuoff = 4)
 Function `plotCoocMutex` plots the co-occurrence and mutual exclusivity plots for mutation genes which drive immune cells.
 }
 \examples{
-cellmatrix<-GetExampleData("cellmatrix") # Cell abundance matrix
-mutmatrix<-GetExampleData("mutmatrix") # A binary mutations matrix
-mutcell<-GetExampleData("mutcell") # The result of `mutcorcell` funtion
-summary<-summary<-mutcellsummary(mutcell = mutcell,mutmatrix = mutmatrix,cellmatrix=cellmatrix)
-file<-"dir" #dir must be an absolute path or the name  relatived to the current working directory.
-\dontrun{plotCoocMutex(maffile = dir,mutcell.summary = summary,cellnumcuoff =0)}
+# get the result of `exp2cell` funtion
+cellmatrix<-GetExampleData("cellmatrix")
+
+#get the binary mutations matrix,
+mutmatrix<-GetExampleData("mutmatrix")
+
+# get the result of `mutcorcell` funtion
+mutcell<-GetExampleData("mutcell")
+
+#perform the function mutcellsummary
+summary<-mutcellsummary(mutcell = mutcell,mutmatrix = mutmatrix,cellmatrix=cellmatrix)
+
+#dir is the name of mutation annotation file (MAF) format data.
+#It must be an absolute path or the name relatived to the current working directory.
+maf<-"dir"
+#plot the co-occurrence and mutual exclusivity plots for mutation genes which drive immune cells.
+\donttest{plotCoocMutex(maffile = maf,mutcell.summary = summary,cellnumcuoff =0)}
 }
 \references{
 Gerstung M, Pellagatti A, Malcovati L, et al. Combining gene mutation with gene expression data improves outcome prediction in myelodysplastic syndromes. Nature Communications. 2015;6:5901. doi:10.1038/ncomms6901.

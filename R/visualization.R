@@ -1,21 +1,40 @@
 #' @title plotwaterfall
-#' @description Function‘plotwaterfall‘ plots the waterfall for mutation genes which drive immune cells.
+#' @description Function ‘plotwaterfall‘ plots the waterfall for mutation genes which drive immune cells.
 #' @param maffile The name of mutation annotation file (MAF) format data. It must be an absolute path or the name  relatived to the current working directory.
 #' @param mutcell.summary The result of `mutcellsummary` function
 #' @param cellnumcuoff a threshold value (4 as the default value). The mutation genes which drive at least "cellnumcuoff" cells are retained for drawing an waterfall.
+#' @param fill Logical. If TRUE draws genes and samples as blank grids even when they are not altered.
 #' @importFrom maftools oncoplot
 #' @importFrom maftools read.maf
 #' @export
 #' @examples
-#' file<-"dir" #dir must be an absolute path or the name  relatived to the current working directory.
-#' \dontrun{plotwaterfall(maffile = dir,mutcell.summary = summary,cellnumcuoff =0)}
-plotwaterfall <- function(maffile,mutcell.summary,cellnumcuoff=4) {
+#' # get result of `exp2cell` funtion
+#' cellmatrix<-GetExampleData("cellmatrix")
+#'
+#' #get the binary mutations matrix,
+#' mutmatrix<-GetExampleData("mutmatrix")
+#'
+#' # get the result of `mutcorcell` funtion
+#' mutcell<-GetExampleData("mutcell")
+#'
+#' #perform the function mutcellsummary
+#' summary<-mutcellsummary(mutcell = mutcell,mutmatrix = mutmatrix,cellmatrix=cellmatrix)
+#'
+#' #dir is the name of mutation annotation file (MAF) format data.
+#' #It must be an absolute path or the name relatived to the current working directory.
+#' # maf<-"dir"
+#'
+#' # mutcell.summary is the result of function mutcellsummary
+#'
+#' #plot the waterfall for mutation genes which drive immune cells
+#' \donttest{plotwaterfall(maffile = maf,mutcell.summary = summary,cellnumcuoff =0)}
+plotwaterfall <- function(maffile,mutcell.summary,cellnumcuoff=3,fill=TRUE) {
   ## requireNamespace("maftools")|| stop("package maftools is required,please install package maftools")
   gene.top<-mutcell.summary[which(mutcell.summary[,"count"]>=cellnumcuoff),1]
   maf<-read.maf(maf = maffile)
   oncoplot(maf = maf,
            genes = gene.top,
-           fill = T,
+           fill = fill,
            fontSize = 0.8 ,
            showTumorSampleBarcodes = F)
 }
@@ -30,17 +49,28 @@ plotwaterfall <- function(maffile,mutcell.summary,cellnumcuoff=4) {
 #' @references Gerstung M, Pellagatti A, Malcovati L, et al. Combining gene mutation with gene expression data improves outcome prediction in myelodysplastic syndromes. Nature Communications. 2015;6:5901. doi:10.1038/ncomms6901.
 #' @export
 #' @examples
-#' cellmatrix<-GetExampleData("cellmatrix") # Cell abundance matrix
-#' mutmatrix<-GetExampleData("mutmatrix") # A binary mutations matrix
-#' mutcell<-GetExampleData("mutcell") # The result of `mutcorcell` funtion
-#' summary<-summary<-mutcellsummary(mutcell = mutcell,mutmatrix = mutmatrix,cellmatrix=cellmatrix)
-#' file<-"dir" #dir must be an absolute path or the name  relatived to the current working directory.
-#' \dontrun{plotCoocMutex(maffile = dir,mutcell.summary = summary,cellnumcuoff =0)}
-plotCoocMutex <- function(maffile,mutcell.summary,cellnumcuoff=4) {
+#' # get the result of `exp2cell` funtion
+#' cellmatrix<-GetExampleData("cellmatrix")
+#'
+#' #get the binary mutations matrix,
+#' mutmatrix<-GetExampleData("mutmatrix")
+#'
+#' # get the result of `mutcorcell` funtion
+#' mutcell<-GetExampleData("mutcell")
+#'
+#' #perform the function mutcellsummary
+#' summary<-mutcellsummary(mutcell = mutcell,mutmatrix = mutmatrix,cellmatrix=cellmatrix)
+#'
+#' #dir is the name of mutation annotation file (MAF) format data.
+#' #It must be an absolute path or the name relatived to the current working directory.
+#' maf<-"dir"
+#' #plot the co-occurrence and mutual exclusivity plots for mutation genes which drive immune cells.
+#' \donttest{plotCoocMutex(maffile = maf,mutcell.summary = summary,cellnumcuoff =0)}
+plotCoocMutex <- function(maffile,mutcell.summary,cellnumcuoff=3) {
   ## requireNamespace("maftools")|| stop("package maftools is required,please install package maftools")
   gene.top<-mutcell.summary[which(mutcell.summary[,"count"]>=cellnumcuoff),1]
   maf<-read.maf(maf = maffile)
-  somaticInteractions(maf = maf, genes = gene.top, pvalue = c(0.05, 0.01))
+  somaticInteractions(maf = maf, genes = gene.top, pvalue = c(0.05, 0.1))
 }
 
 
@@ -49,15 +79,28 @@ plotCoocMutex <- function(maffile,mutcell.summary,cellnumcuoff=4) {
 #' @param gene Somatic mutant gene name
 #' @param cellmatrix Cell abundance matrix, cellmatrix is the result of function `exp2cell`.
 #' @param mutcell A list, mutcell is the result of function `mutcorcell`.
-#' @param mutmatrix A binary mutations matrix, in which 1 represents any mutation occurs in a particular gene in a particular sample, otherwise the element is 0.
+#' @param mutmatrix A binary mutations matrix, which can not only come from the maf2matrix function, but also any binary mutations matrix, in which 1 represents any mutation occurs in a particular gene in a particular sample, otherwise the element is 0.
+#' @param annotation_colors list for specifying annotation_row and annotation_col track colors manually. It is possible to define the colors for only some of the features. Check examples for details.
+#' @param annotation_row data frame that specifies the annotations shown on left side of the heatmap. Each row defines the features for a specific row. The rows in the data and in the annotation are matched using corresponding row names. Note that color schemes takes into account if variable is continuous or discrete.
+#' @param annotation_col similar to annotation_row, but for columns.
+#' @param main The title of the plot
+#' @param show_rownames	boolean specifying if column names are be shown.
+#' @param show_colnames boolean specifying if column names are be shown.
 #' @importFrom pheatmap pheatmap
 #' @export
 #' @examples
-#' mutcell<-GetExampleData("mutcell") # The result of `mutcorcell` function.
-#' cellmatrix<-GetExampleData("cellmatrix") # Cell abundance matrix
-#' mutmatrix<-GetExampleData("mutmatrix") # A binary mutations matrix
+#' #get the result of `mutcorcell` function.
+#' mutcell<-GetExampleData("mutcell")
+#'
+#' #get cell abundance matrix which is the result of exp2cell function
+#' cellmatrix<-GetExampleData("cellmatrix")
+#'
+#' #get the binary mutations matrix
+#' mutmatrix<-GetExampleData("mutmatrix")
+#'
+#' # plot significant up-regulation or down-regulation cells heat map specific for breast cancer
 #' heatmapcell(gene = "TP53",mutcell = mutcell,cellmatrix = cellmatrix,mutmatrix = mutmatrix)
-heatmapcell <- function(gene,mutcell,cellmatrix,mutmatrix) {
+heatmapcell <- function(gene,mutcell,cellmatrix,mutmatrix,main = NA,show_rownames=TRUE,show_colnames = FALSE,annotation_colors = NA,annotation_row = NA,annotation_col = NA) {
   mutcell<-mutcell$mut_cell
   intersample<-intersect(colnames(cellmatrix),colnames(mutmatrix))
   mutmatrix<-mutmatrix[,intersample]
@@ -70,13 +113,15 @@ heatmapcell <- function(gene,mutcell,cellmatrix,mutmatrix) {
   colnames(cell.gene_ordmut_zscore)<-colnames(cell.gene_ordmut)
   cell.gene_ordmut_zscore[which(cell.gene_ordmut_zscore>2)]<-2
   cell.gene_ordmut_zscore[which(cell.gene_ordmut_zscore<(-2))]<-(-2)
+  #bk<-c(seq(-2,-0.1,by=0.1),seq(0,2,by=0.1))
+  #bkcolor<-c(colorRampPalette(colors = c("#4575B4","white"))(length(bk)/2),colorRampPalette(colors = c("white","#D73027"))(length(bk)/2))
   ann_colors = list(
     genemut = c("#F9A452","#4B86C5")
   )
   annotation_col = data.frame(
     mutstat = factor(mutwithorder)
   )
-  pheatmap(cell.gene_ordmut_zscore,scale ="none",show_rownames = TRUE,show_colnames = FALSE,cluster_cols = FALSE,annotation_col =annotation_col ,annotation_colors = ann_colors)
+  pheatmap(cell.gene_ordmut_zscore,scale ="none",show_rownames = show_rownames,show_colnames = show_colnames,cluster_cols = FALSE,annotation_col =annotation_col,annotation_row = annotation_row,annotation_colors = ann_colors,main=main)
 }
 
 
@@ -112,8 +157,8 @@ getPrintFile<-function(coxph.fit,gene,GeneCoefResult){
   }
   return(GeneCoefResult)
 }
-getUniOrMultiCOXAnalysis<-function(subprof,clin,method){
 
+getUniOrMultiCOXAnalysis<-function(subprof,clin,method){
   subprof<-t(subprof);
   samples<-rownames(subprof);
   mm<-match(samples,as.character(clin[,1]))
@@ -133,7 +178,7 @@ getUniOrMultiCOXAnalysis<-function(subprof,clin,method){
       if(sd(x)==0){next
       }else{
         #attach(cox.data);
-        coxph.fit<-coxph(Surv(Survival,Events)~x,data = cox.data)
+        coxph.fit<-survival::coxph(Surv(Survival,Events)~x,data = cox.data)
         GeneCoefResult<-getPrintFile(coxph.fit,gname[i],GeneCoefResult);
         #detach(cox.data)
       }
@@ -178,11 +223,14 @@ getKMdata<-function(subprof2,clin2,label2){
   KMdata<-KMdata[,-1]
   return(KMdata)
 }
+
 getCutoffValue<-function(coxRes,subprof){
   coef<-coxRes[,c("geneName","coef"),drop=FALSE]
   inter<-intersect(gsub("gene.","",as.character(coef[,1])),as.character(rownames((subprof))))
+  #nn<-match(gsub("gene.","",as.character(coef[,1])),as.character(subprof[,1]))
   nn<-match(as.character(inter),gsub("gene.","",as.character(coef[,1])))
   nn<-nn[which(is.na(nn)==FALSE)]
+  #nnn<-match(as.character(subprof[,1]),gsub("gene.","",as.character(coef[,1])))
   nnn<-match(as.character(inter),as.character(rownames((subprof))))
   nnn<-nnn[which(is.na(nnn)==FALSE)]
   coefExp<-c();numprof<-apply(unname(subprof),c(1,2),as.numeric)
@@ -191,13 +239,18 @@ getCutoffValue<-function(coxRes,subprof){
   }
 
   median<-median(coefExp)
+  #print(median)
+  #median<-quantile(coefExp,  probs = c(0.75))
   return(median)
 }
+
 getCoefExpCluster<-function(coxRes,subprof2,subprof){
   coef<-coxRes[,c("geneName","coef"), drop=FALSE ]
   inter<-intersect(gsub("gene.","",as.character(coef[,1])),as.character(rownames((subprof2))))
+  #nn<-match(gsub("gene.","",as.character(coef[,1])),as.character(subprof2[,1]))
   nn<-match(as.character(inter),gsub("gene.","",as.character(coef[,1])))
   nn<-nn[which(is.na(nn)==FALSE)]
+  #nnn<-match(as.character(subprof2[,1]),gsub("gene.","",as.character(coef[,1])))
   nnn<-match(as.character(inter),as.character(rownames((subprof2))))
   nnn<-nnn[which(is.na(nnn)==FALSE)]
   coefExp2<-c();numprof<-apply(unname(subprof2),c(1,2),as.numeric)
@@ -219,6 +272,10 @@ getCoefExpCluster<-function(coxRes,subprof2,subprof){
 #' @param cellmatrix Cell abundance matrix
 #' @param method Method must be one of "Univariate" and "Multivariate". The coefficient of cells for risk score are estimated by "Univariate" or "Multivariate" cox proportional risk regression model on cell abundance matrix and overall survival data..
 #' @param surv Surv is the survival data, the first column is the sample name, the second column is the survival time, and the third is the survival event.
+#' @param palette the color palette to be used. Allowed values include "hue" for the default hue color scale; "grey" for grey color palettes; brewer palettes e.g. "RdBu", "Blues", ...; or custom color palette e.g. c("blue", "red"); and scientific journal palettes from ggsci R package, e.g.: "npg", "aaas", "lancet", "jco", "ucscgb", "uchicago", "simpsons" and "rickandmorty". See details section for more information. Can be also a numeric vector of length(groups); in this case a basic color palette is created using the function palette.
+#' @param pval logical value, a numeric or a string. If logical and TRUE, the p-value is added on the plot. If numeric, than the computet p-value is substituted with the one passed with this parameter. If character, then the customized string appears on the plot.
+#' @param legend.title legend title.
+#' @param legend.labs character vector specifying legend labels. Used to replace the names of the strata from the fit. Should be given in the same order as those strata.
 #' @return Kaplan–Meier curves
 #' @importFrom survival coxph
 #' @importFrom survival survfit
@@ -226,27 +283,62 @@ getCoefExpCluster<-function(coxRes,subprof2,subprof){
 #' @importFrom survival Surv
 #' @importFrom grDevices rgb
 #' @importFrom survminer ggsurvplot
+#' @importFrom stats sd
 #' @export
 #' @examples
-#' mutcell<-GetExampleData("mutcell") # The result of `mutcorcell` function.
-#' cellmatrix<-GetExampleData("cellmatrix") # Cell abundance matrix
-#' surv<-GetExampleData("surv") # The survival data
+#' # get the result of `mutcorcell` function.
+#' mutcell<-GetExampleData("mutcell")
+#'
+#' # get cell abundance matrix which is the result of exp2cell function
+#' cellmatrix<-GetExampleData("cellmatrix")
+#'
+#' # get survival data
+#' surv<-GetExampleData("surv")
+#'
+#' #draw Kaplan–Meier curves
 #' survcell(gene ="TP53",mutcell=mutcell,cellmatrix=cellmatrix,surv=surv)
-survcell <- function(gene,mutcell,cellmatrix,surv,method="Multivariate") {
-  mutcell<-mutcell$mut_cell
-  cellgene<-names(which(mutcell[gene,]==1))
-  colnames(surv)<-c("Samples","Survival","Events")
-  cellmatrix.gene<-cellmatrix[cellgene,]
-  if (method=="Multivariate") {
-    cox.gene<-getUniOrMultiCOXAnalysis(subprof = cellmatrix.gene,clin = surv,method ="Multivariate" )
-  }else if (method=="Univariate") {
-    cox.gene<-getUniOrMultiCOXAnalysis(subprof = cellmatrix.gene,clin = surv,method ="Univariate" )
-  }else {
-    print("method must be one of 'Univariate'and'Multivariate'.")
+survcell <-
+  function(gene,
+           mutcell,
+           cellmatrix,
+           surv,
+           method = "Multivariate",
+           legend.title = "Strata",
+           legend.labs = c("group=0", "group=1"),
+           palette = c("#E7B800", "#2E9FDF"),
+           pval = TRUE) {
+    mutcell <- mutcell$mut_cell
+    cellgene <- names(which(mutcell[gene, ] == 1))
+    colnames(surv) <- c("Samples", "Survival", "Events")
+    cellmatrix.gene <- cellmatrix[cellgene, ]
+    if (method == "Multivariate") {
+      cox.gene <-
+        getUniOrMultiCOXAnalysis(subprof = cellmatrix.gene,
+                                 clin = surv,
+                                 method = "Multivariate")
+    } else if (method == "Univariate") {
+      cox.gene <-
+        getUniOrMultiCOXAnalysis(subprof = cellmatrix.gene,
+                                 clin = surv,
+                                 method = "Univariate")
+    } else {
+      print("method must be one of 'Univariate'and'Multivariate'.")
+    }
+    label <-
+      getCoefExpCluster(coxRes = cox.gene,
+                        subprof2 = cellmatrix,
+                        subprof = cellmatrix.gene)
+    rownames(label) <- label[, 1]
+    KMdata <-
+      getKMdata(subprof2 = cellmatrix,
+                clin2 = surv ,
+                label2 = label)
+    fit <- survfit(Surv(Survival, Events) ~ group, data = KMdata)
+    ggsurvplot(fit,
+               data = KMdata,
+               palette = palette,
+               legend.title=legend.title,
+               legend.labs=legend.labs,
+               pval = pval)
   }
-  label<-getCoefExpCluster(coxRes = cox.gene,subprof2 = cellmatrix,subprof = cellmatrix.gene)
-  rownames(label)<-label[,1]
-  KMdata<-getKMdata(subprof2 = cellmatrix,clin2 =surv ,label2 = label)
-  fit <- survfit(Surv(Survival, Events) ~ group, data = KMdata)
-  ggsurvplot(fit,pval = TRUE,data = KMdata)
-}
+

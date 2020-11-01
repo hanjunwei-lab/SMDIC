@@ -25,3 +25,15 @@
 #' Bindea G, Mlecnik B, Tosolini M, Kirilovsky A, Waldner M, Obenauf AC, et al. Spatiotemporal dynamics of intratumoral immune cells reveal the immune landscape in human cancer. Immunity. 2013;39:782–95.
 "cell24"
 
+#' @title xCell datasets
+#' @description xCell datasets. It's a built-in data.
+#' @usage xCell.data
+#'
+#' @format list:
+#' \describe{
+#'   \item{spill}{spillover matrix and calibration parameters}
+#'   \item{signatures}{the signatures for calculating scores}
+#'   \item{genes}{genes to use to calculate xCell}
+#' }
+"xCell.data"
+

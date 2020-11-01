@@ -4,7 +4,17 @@
 \alias{survcell}
 \title{survcell}
 \usage{
-survcell(gene, mutcell, cellmatrix, surv, method = "Multivariate")
+survcell(
+  gene,
+  mutcell,
+  cellmatrix,
+  surv,
+  method = "Multivariate",
+  legend.title = "Strata",
+  legend.labs = c("group=0", "group=1"),
+  palette = c("#E7B800", "#2E9FDF"),
+  pval = TRUE
+)
 }
 \arguments{
 \item{gene}{Somatic mutant gene name}
@@ -16,6 +26,14 @@ survcell(gene, mutcell, cellmatrix, surv, method = "Multivariate")
 \item{surv}{Surv is the survival data, the first column is the sample name, the second column is the survival time, and the third is the survival event.}
 
 \item{method}{Method must be one of "Univariate" and "Multivariate". The coefficient of cells for risk score are estimated by "Univariate" or "Multivariate" cox proportional risk regression model on cell abundance matrix and overall survival data..}
+
+\item{legend.title}{legend title.}
+
+\item{legend.labs}{character vector specifying legend labels. Used to replace the names of the strata from the fit. Should be given in the same order as those strata.}
+
+\item{palette}{the color palette to be used. Allowed values include "hue" for the default hue color scale; "grey" for grey color palettes; brewer palettes e.g. "RdBu", "Blues", ...; or custom color palette e.g. c("blue", "red"); and scientific journal palettes from ggsci R package, e.g.: "npg", "aaas", "lancet", "jco", "ucscgb", "uchicago", "simpsons" and "rickandmorty". See details section for more information. Can be also a numeric vector of length(groups); in this case a basic color palette is created using the function palette.}
+
+\item{pval}{logical value, a numeric or a string. If logical and TRUE, the p-value is added on the plot. If numeric, than the computet p-value is substituted with the one passed with this parameter. If character, then the customized string appears on the plot.}
 }
 \value{
 Kaplan–Meier curves
@@ -24,8 +42,15 @@ Kaplan–Meier curves
 Function `survcell` draws Kaplan–Meier curves for survival in the above-median and below-median groups for cell risk score. The cell risk score is calaulated by the weighted mean of cells driven by a gene mutation, where the  weight of cells is estimated by the "Univariate" or "Multivariate" cox.
 }
 \examples{
-mutcell<-GetExampleData("mutcell") # The result of `mutcorcell` function.
-cellmatrix<-GetExampleData("cellmatrix") # Cell abundance matrix
-surv<-GetExampleData("surv") # The survival data
+# get the result of `mutcorcell` function.
+mutcell<-GetExampleData("mutcell")
+
+# get cell abundance matrix which is the result of exp2cell function
+cellmatrix<-GetExampleData("cellmatrix")
+
+# get survival data
+surv<-GetExampleData("surv")
+
+#draw Kaplan鈥揗eier curves
 survcell(gene ="TP53",mutcell=mutcell,cellmatrix=cellmatrix,surv=surv)
 }
