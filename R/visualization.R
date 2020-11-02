@@ -110,7 +110,7 @@ plotCoocMutex <- function(maffile,mutcell.summary,cellnumcuoff=3,fontSize = 0.8)
 #'
 #' # plot significant up-regulation or down-regulation cells heat map specific for breast cancer
 #' heatmapcell(gene = "TP53",mutcell = mutcell,cellmatrix = cellmatrix,mutmatrix = mutmatrix)
-heatmapcell <- function(gene,mutcell,cellmatrix,mutmatrix,title = NA,show_rownames=TRUE,show_colnames = FALSE,annotation_colors = NA,annotation_row = NA,annotation_col = NA,color =NA) {
+heatmapcell <- function(gene,mutcell,cellmatrix,mutmatrix,title = NA,show_rownames=TRUE,show_colnames = FALSE,annotation_colors = NA,annotation_row = NA,annotation_col = NA,color = colorRampPalette(c("navy", "white", "firebrick3"))(50)) {
   mutcell<-mutcell$mut_cell
   intersample<-intersect(colnames(cellmatrix),colnames(mutmatrix))
   mutmatrix<-mutmatrix[,intersample]
