@@ -115,7 +115,7 @@ cellmatrix<-GetExampleData("cellmatrix")
 mutmatrix<-GetExampleData("mutmatrix")
 
 # perform the function `mutcorcell`.
-#mutcell<-mutcorcell(cellmatrix= cellmatrix,mutmatrix = mutmatrix,fisher.adjust = TRUE) 
+mutcell<-mutcorcell(cellmatrix= cellmatrix,mutmatrix = mutmatrix,fisher.adjust = TRUE) 
 
 #get the result of the `mutcorcell` function
 mutcell<-GetExampleData("mutcell")
@@ -185,10 +185,10 @@ The commands are as follows.
 #tips: dir is the name of the mutation annotation file (MAF) format data. It must be an absolute path or the name relative to the current working directory.
 
 #plot the waterfall for mutation genes which drive immune cells
-#plotwaterfall(maffile = maf,mutcell.summary = summary,cellnumcuoff =4)
+plotwaterfall(maffile = maf,mutcell.summary = summary,cellnumcuoff =4)
 
 #plot the co-occurrence and mutual exclusivity plots for mutation genes that drive immune cells.
-#plotCoocMutex(maffile = maf,mutcell.summary = summary,cellnumcuoff =4)
+plotCoocMutex(maffile = maf,mutcell.summary = summary,cellnumcuoff =4)
 
 #view the result of the plotwaterfall function
 knitr::include_graphics("../inst/plotwaterfall.jpeg")

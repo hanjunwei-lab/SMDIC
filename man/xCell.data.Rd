@@ -4,14 +4,12 @@
 \name{xCell.data}
 \alias{xCell.data}
 \title{xCell datasets}
-\format{
-list:
+\format{list:
 \describe{
   \item{spill}{spillover matrix and calibration parameters}
   \item{signatures}{the signatures for calculating scores}
   \item{genes}{genes to use to calculate xCell}
-}
-}
+}}
 \usage{
 xCell.data
 }

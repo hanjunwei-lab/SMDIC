@@ -4,9 +4,7 @@
 \name{immunelist}
 \alias{immunelist}
 \title{A large list of 24 immune cells type-specific gene signatures from Bindea et al}
-\format{
-A list
-}
+\format{A list}
 \usage{
 immunelist
 }

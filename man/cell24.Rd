@@ -4,9 +4,7 @@
 \name{cell24}
 \alias{cell24}
 \title{A data.frame of 24 immune cells name from Bindea et al}
-\format{
-A data.frame with 24 rows and 2 column
-}
+\format{A data.frame with 24 rows and 2 column}
 \usage{
 cell24
 }

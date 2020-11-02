@@ -15,7 +15,7 @@ heatmapcell(
   annotation_colors = NA,
   annotation_row = NA,
   annotation_col = NA,
-  color = colorRampPalette(rev(brewer.pal(n = 7, name = "RdYlBu")))(100)
+  color = NA
 )
 }
 \arguments{
