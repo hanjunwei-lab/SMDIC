@@ -128,9 +128,7 @@ heatmapcell <- function(gene,mutcell,cellmatrix,mutmatrix,title = NA,show_rownam
   ann_colors = list(
     genemut = c("#F9A452","#4B86C5")
   )
-  annotation_col = data.frame(
-    mutstat = factor(mutwithorder)
-  )
+  annotation_col = data.frame(mutstat = factor(mutwithorder))
   pheatmap(cell.gene_ordmut_zscore,scale ="none",show_rownames = show_rownames,show_colnames = show_colnames,cluster_cols = FALSE,annotation_col =annotation_col,annotation_row = annotation_row,annotation_colors = ann_colors,main=title,color=color)
 }
 
