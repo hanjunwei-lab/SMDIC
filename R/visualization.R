@@ -3,6 +3,10 @@
 #' @param maffile The name of mutation annotation file (MAF) format data. It must be an absolute path or the name  relatived to the current working directory.
 #' @param mutcell.summary The result of `mutcellsummary` function
 #' @param cellnumcuoff a threshold value (4 as the default value). The mutation genes which drive at least "cellnumcuoff" cells are retained for drawing an waterfall.
+#' @param fontSize font size for gene names. Default 0.8.
+#' @param showTumorSampleBarcodes logical to include sample names.
+#' @param showTitle Default TRUE
+#' @param colors named vector of colors for each Variant_Classification.
 #' @importFrom maftools oncoplot
 #' @importFrom maftools read.maf
 #' @export
@@ -27,14 +31,16 @@
 #'
 #' #plot the waterfall for mutation genes which drive immune cells
 #' \donttest{plotwaterfall(maffile = maf,mutcell.summary = summary,cellnumcuoff =0)}
-plotwaterfall <- function(maffile,mutcell.summary,cellnumcuoff=3) {
+plotwaterfall <- function(maffile,mutcell.summary,cellnumcuoff=3,fontSize = 0.8,showTumorSampleBarcodes=F,showTitle = TRUE,colors = NULL) {
   ## requireNamespace("maftools")|| stop("package maftools is required,please install package maftools")
   gene.top<-mutcell.summary[which(mutcell.summary[,"count"]>=cellnumcuoff),1]
   maf<-read.maf(maf = maffile)
   oncoplot(maf = maf,
            genes = gene.top,
-           fontSize = 0.8 ,
-           showTumorSampleBarcodes = F)
+           fontSize = fontSize ,
+           showTumorSampleBarcodes = showTumorSampleBarcodes,
+           showTitle = showTitle,
+           colors=colors)
 }
 
 #' @title plotCoocMutex
@@ -42,6 +48,7 @@ plotwaterfall <- function(maffile,mutcell.summary,cellnumcuoff=3) {
 #' @param maffile The name of mutation annotation file (MAF) format data. It must be an absolute path or the name  relatived to the current working directory.
 #' @param mutcell.summary The result of `mutcellsummary` function
 #' @param cellnumcuoff A threshold value (4 as the default value). The mutation genes which drive at least "cellnumcuoff" cells are retained for drawing a co-occurrence and mutual exclusivity plots.
+#' @param fontSize cex for gene names. Default 0.8
 #' @importFrom maftools somaticInteractions
 #' @importFrom maftools read.maf
 #' @references Gerstung M, Pellagatti A, Malcovati L, et al. Combining gene mutation with gene expression data improves outcome prediction in myelodysplastic syndromes. Nature Communications. 2015;6:5901. doi:10.1038/ncomms6901.
@@ -64,11 +71,15 @@ plotwaterfall <- function(maffile,mutcell.summary,cellnumcuoff=3) {
 #' maf<-"dir"
 #' #plot the co-occurrence and mutual exclusivity plots for mutation genes which drive immune cells.
 #' \donttest{plotCoocMutex(maffile = maf,mutcell.summary = summary,cellnumcuoff =0)}
-plotCoocMutex <- function(maffile,mutcell.summary,cellnumcuoff=3) {
+plotCoocMutex <- function(maffile,mutcell.summary,cellnumcuoff=3,fontSize = 0.8) {
   ## requireNamespace("maftools")|| stop("package maftools is required,please install package maftools")
   gene.top<-mutcell.summary[which(mutcell.summary[,"count"]>=cellnumcuoff),1]
   maf<-read.maf(maf = maffile)
-  somaticInteractions(maf = maf, genes = gene.top, pvalue = c(0.05, 0.1))
+  somaticInteractions(maf = maf,
+                      genes = gene.top,
+                      pvalue = c(0.05, 0.1),
+                      fontSize=fontSize
+                      )
 }
 
 

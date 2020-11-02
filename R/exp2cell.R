@@ -431,7 +431,7 @@ CIBERSORT <- function(sig_matrix, mixture_file, perm=0, QN=TRUE){
 #' Gene expression profiles were used to quantify cell abundance matrix.
 #' @param method Method must be one of "xCell", "ssGSEA" and "CIBERSORT".
 #' @param QN Quantile normalization of input mixture (default = TRUE)
-#' @param perm No. permutations; set to >=100 to calculate p-values (default = 0)
+#' @param perm No. permutations; set to >=100 to calculate p-values (default = 100)
 #' @param kcdf By default, kcdf="Gaussian" which is suitable when input expression values are continuous,
 #' such as microarray fluorescent units in logarithmic scale, RNA-seq log-CPMs, log-RPKMs or log-TPMs.
 #' When input expression values are integer counts, such as those derived from RNA-seq experiments,

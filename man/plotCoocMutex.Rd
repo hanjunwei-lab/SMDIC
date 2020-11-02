@@ -4,7 +4,7 @@
 \alias{plotCoocMutex}
 \title{plotCoocMutex}
 \usage{
-plotCoocMutex(maffile, mutcell.summary, cellnumcuoff = 3)
+plotCoocMutex(maffile, mutcell.summary, cellnumcuoff = 3, fontSize = 0.8)
 }
 \arguments{
 \item{maffile}{The name of mutation annotation file (MAF) format data. It must be an absolute path or the name  relatived to the current working directory.}
@@ -12,6 +12,8 @@ plotCoocMutex(maffile, mutcell.summary, cellnumcuoff = 3)
 \item{mutcell.summary}{The result of `mutcellsummary` function}
 
 \item{cellnumcuoff}{A threshold value (4 as the default value). The mutation genes which drive at least "cellnumcuoff" cells are retained for drawing a co-occurrence and mutual exclusivity plots.}
+
+\item{fontSize}{cex for gene names. Default 0.8}
 }
 \description{
 Function `plotCoocMutex` plots the co-occurrence and mutual exclusivity plots for mutation genes which drive immune cells.

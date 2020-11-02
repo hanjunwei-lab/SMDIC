@@ -18,7 +18,7 @@ Gene expression profiles were used to quantify cell abundance matrix.}
 
 \item{method}{Method must be one of "xCell", "ssGSEA" and "CIBERSORT".}
 
-\item{perm}{No. permutations; set to >=100 to calculate p-values (default = 0)}
+\item{perm}{No. permutations; set to >=100 to calculate p-values (default = 100)}
 
 \item{QN}{Quantile normalization of input mixture (default = TRUE)}
 

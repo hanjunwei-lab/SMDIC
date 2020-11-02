@@ -4,7 +4,15 @@
 \alias{plotwaterfall}
 \title{plotwaterfall}
 \usage{
-plotwaterfall(maffile, mutcell.summary, cellnumcuoff = 3)
+plotwaterfall(
+  maffile,
+  mutcell.summary,
+  cellnumcuoff = 3,
+  fontSize = 0.8,
+  showTumorSampleBarcodes = F,
+  showTitle = TRUE,
+  colors = NULL
+)
 }
 \arguments{
 \item{maffile}{The name of mutation annotation file (MAF) format data. It must be an absolute path or the name  relatived to the current working directory.}
@@ -12,6 +20,14 @@ plotwaterfall(maffile, mutcell.summary, cellnumcuoff = 3)
 \item{mutcell.summary}{The result of `mutcellsummary` function}
 
 \item{cellnumcuoff}{a threshold value (4 as the default value). The mutation genes which drive at least "cellnumcuoff" cells are retained for drawing an waterfall.}
+
+\item{fontSize}{font size for gene names. Default 0.8.}
+
+\item{showTumorSampleBarcodes}{logical to include sample names.}
+
+\item{showTitle}{Default TRUE}
+
+\item{colors}{named vector of colors for each Variant_Classification.}
 }
 \description{
 Function ‘plotwaterfall‘ plots the waterfall for mutation genes which drive immune cells.
