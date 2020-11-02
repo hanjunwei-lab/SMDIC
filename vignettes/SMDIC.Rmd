@@ -214,6 +214,7 @@ surv<-GetExampleData("surv")
 survcell(gene ="TP53",mutcell=mutcell,cellmatrix=cellmatrix,surv=surv,palette = c("#E7B800", "#2E9FDF"))
 ```
 
+We use the TCGA breast cancer sample data set to display the results, and users can also enter the cancer data set they are interested in.
 
 
 
