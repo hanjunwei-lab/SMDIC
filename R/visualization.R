@@ -347,6 +347,7 @@ survcell <-
       getKMdata(subprof2 = cellmatrix,
                 clin2 = surv ,
                 label2 = label)
+
     fit <- survfit(Surv(Survival, Events) ~ group, data = KMdata)
     ggsurvplot(fit,
                data = KMdata,

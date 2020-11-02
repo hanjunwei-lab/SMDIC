@@ -9,12 +9,13 @@ heatmapcell(
   mutcell,
   cellmatrix,
   mutmatrix,
-  main = NA,
+  title = NA,
   show_rownames = TRUE,
   show_colnames = FALSE,
   annotation_colors = NA,
   annotation_row = NA,
-  annotation_col = NA
+  annotation_col = NA,
+  color = colorRampPalette(rev(brewer.pal(n = 7, name = "RdYlBu")))(100)
 )
 }
 \arguments{
@@ -26,7 +27,7 @@ heatmapcell(
 
 \item{mutmatrix}{A binary mutations matrix, which can not only come from the maf2matrix function, but also any binary mutations matrix, in which 1 represents any mutation occurs in a particular gene in a particular sample, otherwise the element is 0.}
 
-\item{main}{The title of the plot}
+\item{title}{The title of the plot}
 
 \item{show_rownames}{boolean specifying if column names are be shown.}
 
@@ -37,6 +38,8 @@ heatmapcell(
 \item{annotation_row}{data frame that specifies the annotations shown on left side of the heatmap. Each row defines the features for a specific row. The rows in the data and in the annotation are matched using corresponding row names. Note that color schemes takes into account if variable is continuous or discrete.}
 
 \item{annotation_col}{similar to annotation_row, but for columns.}
+
+\item{color}{vector of colors used in heatmap.}
 }
 \description{
 A function to draw clustered heatmaps for the cells driven by a somatic mutation.

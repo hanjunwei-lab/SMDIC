@@ -13,7 +13,9 @@ survcell(
   legend.title = "Strata",
   legend.labs = c("group=0", "group=1"),
   palette = c("#E7B800", "#2E9FDF"),
-  pval = TRUE
+  color = NULL,
+  pval = TRUE,
+  title = NULL
 )
 }
 \arguments{
@@ -33,7 +35,11 @@ survcell(
 
 \item{palette}{the color palette to be used. Allowed values include "hue" for the default hue color scale; "grey" for grey color palettes; brewer palettes e.g. "RdBu", "Blues", ...; or custom color palette e.g. c("blue", "red"); and scientific journal palettes from ggsci R package, e.g.: "npg", "aaas", "lancet", "jco", "ucscgb", "uchicago", "simpsons" and "rickandmorty". See details section for more information. Can be also a numeric vector of length(groups); in this case a basic color palette is created using the function palette.}
 
+\item{color}{color to be used for the survival curves.If the number of strata/group (n.strata) = 1, the expected value is the color name. For example color = "blue".If n.strata > 1, the expected value is the grouping variable name. By default, survival curves are colored by strata using the argument color = "strata", but you can also color survival curves by any other grouping variables used to fit the survival curves. In this case, it's possible to specify a custom color palette by using the argument palette.}
+
 \item{pval}{logical value, a numeric or a string. If logical and TRUE, the p-value is added on the plot. If numeric, than the computet p-value is substituted with the one passed with this parameter. If character, then the customized string appears on the plot.}
+
+\item{title}{the title of the survival curve}
 }
 \value{
 Kaplan–Meier curves
