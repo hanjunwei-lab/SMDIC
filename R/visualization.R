@@ -79,7 +79,7 @@ plotCoocMutex <- function(maffile,mutcell.summary,cellnumcuoff=3,fontSize = 0.8)
                       genes = gene.top,
                       pvalue = c(0.05, 0.1),
                       fontSize=fontSize
-                      )
+  )
 }
 
 
@@ -92,7 +92,8 @@ plotCoocMutex <- function(maffile,mutcell.summary,cellnumcuoff=3,fontSize = 0.8)
 #' @param annotation_colors list for specifying annotation_row and annotation_col track colors manually. It is possible to define the colors for only some of the features. Check examples for details.
 #' @param annotation_row data frame that specifies the annotations shown on left side of the heatmap. Each row defines the features for a specific row. The rows in the data and in the annotation are matched using corresponding row names. Note that color schemes takes into account if variable is continuous or discrete.
 #' @param annotation_col similar to annotation_row, but for columns.
-#' @param main The title of the plot
+#' @param title The title of the plot
+#' @param color vector of colors used in heatmap.
 #' @param show_rownames	boolean specifying if column names are be shown.
 #' @param show_colnames boolean specifying if column names are be shown.
 #' @importFrom pheatmap pheatmap
@@ -109,7 +110,7 @@ plotCoocMutex <- function(maffile,mutcell.summary,cellnumcuoff=3,fontSize = 0.8)
 #'
 #' # plot significant up-regulation or down-regulation cells heat map specific for breast cancer
 #' heatmapcell(gene = "TP53",mutcell = mutcell,cellmatrix = cellmatrix,mutmatrix = mutmatrix)
-heatmapcell <- function(gene,mutcell,cellmatrix,mutmatrix,main = NA,show_rownames=TRUE,show_colnames = FALSE,annotation_colors = NA,annotation_row = NA,annotation_col = NA) {
+heatmapcell <- function(gene,mutcell,cellmatrix,mutmatrix,title = NA,show_rownames=TRUE,show_colnames = FALSE,annotation_colors = NA,annotation_row = NA,annotation_col = NA,color = colorRampPalette(rev(brewer.pal(n = 7, name ="RdYlBu")))(100)) {
   mutcell<-mutcell$mut_cell
   intersample<-intersect(colnames(cellmatrix),colnames(mutmatrix))
   mutmatrix<-mutmatrix[,intersample]
@@ -130,7 +131,7 @@ heatmapcell <- function(gene,mutcell,cellmatrix,mutmatrix,main = NA,show_rowname
   annotation_col = data.frame(
     mutstat = factor(mutwithorder)
   )
-  pheatmap(cell.gene_ordmut_zscore,scale ="none",show_rownames = show_rownames,show_colnames = show_colnames,cluster_cols = FALSE,annotation_col =annotation_col,annotation_row = annotation_row,annotation_colors = ann_colors,main=main)
+  pheatmap(cell.gene_ordmut_zscore,scale ="none",show_rownames = show_rownames,show_colnames = show_colnames,cluster_cols = FALSE,annotation_col =annotation_col,annotation_row = annotation_row,annotation_colors = ann_colors,main=title,color=color)
 }
 
 
@@ -285,6 +286,8 @@ getCoefExpCluster<-function(coxRes,subprof2,subprof){
 #' @param pval logical value, a numeric or a string. If logical and TRUE, the p-value is added on the plot. If numeric, than the computet p-value is substituted with the one passed with this parameter. If character, then the customized string appears on the plot.
 #' @param legend.title legend title.
 #' @param legend.labs character vector specifying legend labels. Used to replace the names of the strata from the fit. Should be given in the same order as those strata.
+#' @param color color to be used for the survival curves.If the number of strata/group (n.strata) = 1, the expected value is the color name. For example color = "blue".If n.strata > 1, the expected value is the grouping variable name. By default, survival curves are colored by strata using the argument color = "strata", but you can also color survival curves by any other grouping variables used to fit the survival curves. In this case, it's possible to specify a custom color palette by using the argument palette.
+#' @param title the title of the survival curve
 #' @return Kaplan–Meier curves
 #' @importFrom survival coxph
 #' @importFrom survival survfit
@@ -315,7 +318,9 @@ survcell <-
            legend.title = "Strata",
            legend.labs = c("group=0", "group=1"),
            palette = c("#E7B800", "#2E9FDF"),
-           pval = TRUE) {
+           color=NULL,
+           pval = TRUE,
+           title=NULL) {
     mutcell <- mutcell$mut_cell
     cellgene <- names(which(mutcell[gene, ] == 1))
     colnames(surv) <- c("Samples", "Survival", "Events")
@@ -348,6 +353,8 @@ survcell <-
                palette = palette,
                legend.title=legend.title,
                legend.labs=legend.labs,
-               pval = pval)
+               color=color,
+               pval = pval,
+               title=title,ggtheme =theme_light()+ theme_bw()+theme(panel.grid.major=element_blank(),panel.grid.minor=element_blank())+theme(plot.title = element_text(hjust=0.5,vjust=0.5)))
   }
 
