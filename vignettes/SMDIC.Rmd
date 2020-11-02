@@ -47,7 +47,7 @@ This vignette illustrates how to easily use the SMDIC package. With the use of f
 
 +  This package provides the `heatmapcell` function to draw clustered heatmaps for the cells driven by a somatic mutation.
 
-+  This package provides the `survcell` function to draw Kaplan–Meier curves for survival in the above-median and below-median groups for cell risk score.
++  This package provides the `survcell` function to draw Kaplan–Meier survival curves in the above-median and below-median groups for cell risk score.
 
 
 
@@ -175,6 +175,7 @@ require(pheatmap)
 heatmapcell(gene = "TP53",mutcell = mutcell,cellmatrix = cellmatrix,mutmatrix = mutmatrix)
 ```
 
+We use the TCGA breast cancer sample data set to display the waterfall and co-occurrence and mutual exclusivity plots, and users can also enter the cancer data set they are interested in.<br/>
 Function `plotwaterfall` and `plotCoocMutex` provide visualization of the mutation genes correlated with immune cells using a waterfall plot and mutually exclusive or co-occurring plot.<br/>
 
 The commands are as follows.
@@ -198,7 +199,7 @@ knitr::include_graphics("../inst/plotCoocMutex.jpeg")
 
 
 
-Function `survcell` draws Kaplan–Meier curves for survival in the above-median and below-median groups for cell risk score. The cell risk score is calculated by the weighted mean of cells driven by a gene mutation, where the weight of cells is estimated by the "Univariate" or "Multivariate" cox regression.
+Function `survcell` draws Kaplan–Meier survival curves in the above-median and below-median groups for cell risk score. The cell risk score is calculated by the weighted mean of cells driven by a gene mutation, where the weight of cells is estimated by the "Univariate" or "Multivariate" cox regression.
 
 ```{r}
 # get the result of `mutcorcell` function.
@@ -210,13 +211,14 @@ cellmatrix<-GetExampleData("cellmatrix")
 #get the survival data, the first column is the sample name, the second column is the survival time, and the third is the survival event.
 surv<-GetExampleData("surv")
 
-#draw Kaplan–Meier curves
+#draw Kaplan–Meier survival curves
 survcell(gene ="TP53",mutcell=mutcell,cellmatrix=cellmatrix,surv=surv,palette = c("#E7B800", "#2E9FDF"))
 ```
 
 
 
-We use the TCGA breast cancer sample data set to display the results, and users can also enter the cancer data set they are interested in.
+
+
 
 
 
