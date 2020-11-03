@@ -25,7 +25,8 @@ Imports:
     MASS,
     pracma,
     stats,
-    quadprog
+    quadprog,
+    RColorBrewer
 Suggests: 
     knitr,
     rmarkdown
