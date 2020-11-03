@@ -26,7 +26,8 @@ Imports:
     pracma,
     stats,
     quadprog,
-    RColorBrewer
+    RColorBrewer,
+    backports
 Suggests: 
     knitr,
     rmarkdown

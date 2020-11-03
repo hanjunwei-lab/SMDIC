@@ -132,7 +132,7 @@ mutcell$mut_cell[1:6,1:6]
 #the character matrix which shows the cell responses of the immune cells driven by a somatic mutant gene."up" means up-regulation, "down" means down-regulation, and "0" means no significant adjustment relationship
 #mutcell$mut_cell_cellresponses
 ```
-* tip: The binary matrix can not only come from the maf2matrix function but also any binary mutations matrix, in which 1 represents any mutation occurs in a particular gene in a particular sample, otherwise the element is 0. * 
+*tip: The binary matrix can not only come from the maf2matrix function but also any binary mutations matrix, in which 1 represents any mutation occurs in a particular gene in a particular sample, otherwise the element is 0.* 
 
 
 
@@ -185,10 +185,10 @@ The commands are as follows.
 #tips: dir is the name of the mutation annotation file (MAF) format data. It must be an absolute path or the name relative to the current working directory.
 
 #plot the waterfall for mutation genes which drive immune cells
-plotwaterfall(maffile = maf,mutcell.summary = summary,cellnumcuoff =4)
+#plotwaterfall(maffile = maf,mutcell.summary = summary,cellnumcuoff =4)
 
 #plot the co-occurrence and mutual exclusivity plots for mutation genes that drive immune cells.
-plotCoocMutex(maffile = maf,mutcell.summary = summary,cellnumcuoff =4)
+#plotCoocMutex(maffile = maf,mutcell.summary = summary,cellnumcuoff =4)
 
 #view the result of the plotwaterfall function
 knitr::include_graphics("../inst/plotwaterfall.jpeg")
