@@ -3,5 +3,6 @@
 #' @name SMDIC-package
 #' @aliases SMDIC-package
 #' @import RColorBrewer
+#' @import survminer
 #' @docType package
 NULL
