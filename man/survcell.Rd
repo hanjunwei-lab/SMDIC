@@ -15,7 +15,8 @@ survcell(
   palette = c("#E7B800", "#2E9FDF"),
   color = NULL,
   pval = TRUE,
-  title = NULL
+  title = NULL,
+  ggtheme = theme_survminer()
 )
 }
 \arguments{
@@ -40,6 +41,8 @@ survcell(
 \item{pval}{logical value, a numeric or a string. If logical and TRUE, the p-value is added on the plot. If numeric, than the computet p-value is substituted with the one passed with this parameter. If character, then the customized string appears on the plot.}
 
 \item{title}{the title of the survival curve}
+
+\item{ggtheme}{function, ggplot2 theme name. Default value is theme_survminer. Allowed values include ggplot2 official themes: see theme.}
 }
 \value{
 Kaplan–Meier curves

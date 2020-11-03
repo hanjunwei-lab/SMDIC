@@ -4,7 +4,9 @@
 \name{cell64}
 \alias{cell64}
 \title{A data.frame of 64 immune cells name from xCell method}
-\format{A data.frame with 64 rows and 2 column}
+\format{
+A data.frame with 64 rows and 2 column
+}
 \usage{
 cell64
 }
