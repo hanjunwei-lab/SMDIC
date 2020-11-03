@@ -19,7 +19,7 @@ plotwaterfall(
 
 \item{mutcell.summary}{The result of `mutcellsummary` function}
 
-\item{cellnumcuoff}{a threshold value (4 as the default value). The mutation genes which drive at least "cellnumcuoff" cells are retained for drawing an waterfall.}
+\item{cellnumcuoff}{a threshold value (3 as the default value). The mutation genes which drive at least "cellnumcuoff" cells are retained for drawing an waterfall.}
 
 \item{fontSize}{font size for gene names. Default 0.8.}
 
@@ -52,5 +52,5 @@ summary<-mutcellsummary(mutcell = mutcell,mutmatrix = mutmatrix,cellmatrix=cellm
 # mutcell.summary is the result of function mutcellsummary
 
 #plot the waterfall for mutation genes which drive immune cells
-\donttest{plotwaterfall(maffile = maf,mutcell.summary = summary,cellnumcuoff =0)}
+\donttest{plotwaterfall(maffile = maf,mutcell.summary = summary,cellnumcuoff =3)}
 }
