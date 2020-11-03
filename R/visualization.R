@@ -323,7 +323,7 @@ survcell <-
            color=NULL,
            pval = TRUE,
            title=NULL,
-           ggtheme=theme_survminer(),
+           ggtheme=theme_survminer()
            ) {
     mutcell <- mutcell$mut_cell
     cellgene <- names(which(mutcell[gene, ] == 1))
