@@ -110,7 +110,8 @@ plotCoocMutex <- function(maffile,mutcell.summary,cellnumcuoff=3,fontSize = 0.8)
 #'
 #' # plot significant up-regulation or down-regulation cells heat map specific for breast cancer
 #' heatmapcell(gene = "TP53",mutcell = mutcell,cellmatrix = cellmatrix,mutmatrix = mutmatrix)
-heatmapcell <- function(gene,mutcell,cellmatrix,mutmatrix,title = NA,show_rownames=TRUE,show_colnames = FALSE,annotation_colors = NA,annotation_row = NA,annotation_col = NA,color = colorRampPalette(c("navy", "white", "firebrick3"))(50)) {
+heatmapcell <- function(gene,mutcell,cellmatrix,mutmatrix,title = NA,show_rownames=TRUE,show_colnames = FALSE,annotation_colors = NA,annotation_row = NA,annotation_col = NA, color = colorRampPalette(rev(brewer.pal(n = 7, name =
+                                                                                                                                                                                                                        "RdYlBu")))(100)) {
   mutcell<-mutcell$mut_cell
   intersample<-intersect(colnames(cellmatrix),colnames(mutmatrix))
   mutmatrix<-mutmatrix[,intersample]
@@ -288,6 +289,7 @@ getCoefExpCluster<-function(coxRes,subprof2,subprof){
 #' @param legend.labs character vector specifying legend labels. Used to replace the names of the strata from the fit. Should be given in the same order as those strata.
 #' @param color color to be used for the survival curves.If the number of strata/group (n.strata) = 1, the expected value is the color name. For example color = "blue".If n.strata > 1, the expected value is the grouping variable name. By default, survival curves are colored by strata using the argument color = "strata", but you can also color survival curves by any other grouping variables used to fit the survival curves. In this case, it's possible to specify a custom color palette by using the argument palette.
 #' @param title the title of the survival curve
+#' @param ggtheme function, ggplot2 theme name. Default value is theme_survminer. Allowed values include ggplot2 official themes: see theme.
 #' @return Kaplan–Meier curves
 #' @importFrom survival coxph
 #' @importFrom survival survfit
@@ -320,7 +322,9 @@ survcell <-
            palette = c("#E7B800", "#2E9FDF"),
            color=NULL,
            pval = TRUE,
-           title=NULL) {
+           title=NULL,
+           ggtheme=theme_survminer(),
+           ) {
     mutcell <- mutcell$mut_cell
     cellgene <- names(which(mutcell[gene, ] == 1))
     colnames(surv) <- c("Samples", "Survival", "Events")
@@ -356,6 +360,6 @@ survcell <-
                legend.labs=legend.labs,
                color=color,
                pval = pval,
-               title=title,ggtheme =theme_light()+ theme_bw()+theme(panel.grid.major=element_blank(),panel.grid.minor=element_blank())+theme(plot.title = element_text(hjust=0.5,vjust=0.5)))
+               title=title,ggtheme =ggtheme)
   }
 
