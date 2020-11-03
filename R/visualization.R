@@ -2,7 +2,7 @@
 #' @description Function ‘plotwaterfall‘ plots the waterfall for mutation genes which drive immune cells.
 #' @param maffile The name of mutation annotation file (MAF) format data. It must be an absolute path or the name  relatived to the current working directory.
 #' @param mutcell.summary The result of `mutcellsummary` function
-#' @param cellnumcuoff a threshold value (4 as the default value). The mutation genes which drive at least "cellnumcuoff" cells are retained for drawing an waterfall.
+#' @param cellnumcuoff a threshold value (3 as the default value). The mutation genes which drive at least "cellnumcuoff" cells are retained for drawing an waterfall.
 #' @param fontSize font size for gene names. Default 0.8.
 #' @param showTumorSampleBarcodes logical to include sample names.
 #' @param showTitle Default TRUE
@@ -30,7 +30,7 @@
 #' # mutcell.summary is the result of function mutcellsummary
 #'
 #' #plot the waterfall for mutation genes which drive immune cells
-#' \donttest{plotwaterfall(maffile = maf,mutcell.summary = summary,cellnumcuoff =0)}
+#' \donttest{plotwaterfall(maffile = maf,mutcell.summary = summary,cellnumcuoff =3)}
 plotwaterfall <- function(maffile,mutcell.summary,cellnumcuoff=3,fontSize = 0.8,showTumorSampleBarcodes=F,showTitle = TRUE,colors = NULL) {
   ## requireNamespace("maftools")|| stop("package maftools is required,please install package maftools")
   gene.top<-mutcell.summary[which(mutcell.summary[,"count"]>=cellnumcuoff),1]
