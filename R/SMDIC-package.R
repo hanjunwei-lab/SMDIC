@@ -4,5 +4,6 @@
 #' @aliases SMDIC-package
 #' @import RColorBrewer
 #' @import survminer
+#' @import backports
 #' @docType package
 NULL
