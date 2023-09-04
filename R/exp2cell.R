@@ -10,7 +10,7 @@ rawEnrichmentAnalysis <- function(expr, signatures, genes, parallel.sz = 4, para
   expr <- expr[shared.genes, ]
   if (dim(expr)[1] < 5000) {
     print(paste("ERROR: not enough genes"))
-    return - 1
+    return(-1)
   }
 
   # Transform the expression to rank
@@ -37,7 +37,7 @@ rawEnrichmentAnalysis <- function(expr, signatures, genes, parallel.sz = 4, para
   rownames(agg) <- agg[, 1]
   scores <- agg[, -1]
 
-  scores
+  return(scores)
 }
 
 transformScores <- function(scores, fit.vals, scale=TRUE) {

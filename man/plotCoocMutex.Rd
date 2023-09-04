@@ -33,7 +33,7 @@ summary<-mutcellsummary(mutcell = mutcell,mutmatrix = mutmatrix,cellmatrix=cellm
 
 #dir is the name of mutation annotation file (MAF) format data.
 #It must be an absolute path or the name relatived to the current working directory.
-maf<-"dir"
+maf<-system.file("extdata", "example.maf.gz", package = "SMDIC") #MAF file
 #plot the co-occurrence and mutual exclusivity plots for mutation genes which drive immune cells.
 \donttest{plotCoocMutex(maffile = maf,mutcell.summary = summary,cellnumcuoff =0)}
 }

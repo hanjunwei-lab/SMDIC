@@ -60,6 +60,6 @@ cellmatrix<-GetExampleData("cellmatrix")
 # get survival data
 surv<-GetExampleData("surv")
 
-#draw Kaplan鈥揗eier curves
+#draw Kaplan–Meier curves
 survcell(gene ="TP53",mutcell=mutcell,cellmatrix=cellmatrix,surv=surv)
 }
