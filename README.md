@@ -18,5 +18,5 @@ library(SMDIC)
 
 Please cite the following article when using `SMDIC`:
 
-> Waiting for publication
+> [1] Jiang Y , Zheng B , Yang Y ,et al.Identification of Somatic Mutation-Driven Immune Cells by Integrating Genomic and Transcriptome Data[J].Frontiers in Cell and Developmental Biology, 2021, 9:715275.DOI:10.3389/fcell.2021.715275.
 
