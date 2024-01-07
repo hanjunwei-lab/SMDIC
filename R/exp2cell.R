@@ -17,14 +17,15 @@ rawEnrichmentAnalysis <- function(expr, signatures, genes, parallel.sz = 4, para
   expr <- apply(expr, 2, rank)
 
   # Run ssGSEA analysis for the ranked gene expression dataset
-  if(packageVersion("GSVA") >= "1.36.0") {
-    # GSVA >= 1.36.0 does not support `parallel.type` any more.
-    # Instead it automatically uses the backend registered by BiocParallel.
-    scores <- GSVA::gsva(expr, signatures, method = "ssgsea",
-                         ssgsea.norm = FALSE,parallel.sz = parallel.sz)
+  if(packageVersion("GSVA") >= "1.50.0") {
+    exprs <- GSVA::ssgseaParam(expr, signatures, 
+                         normalize = FALSE)
+    scores <- GSVA::gsva(exprs)
+    
   } else {
-    scores <- GSVA::gsva(expr, signatures, method = "ssgsea",
-                         ssgsea.norm = FALSE,parallel.sz = parallel.sz,parallel.type = parallel.type)
+    exprs <- GSVA::ssgseaParam(expr, signatures, 
+                         normalize = FALSE)
+    scores <- GSVA::gsva(exprs)
   }
 
 
@@ -432,10 +433,7 @@ CIBERSORT <- function(sig_matrix, mixture_file, perm=0, QN=TRUE){
 #' @param method Method must be one of "xCell", "ssGSEA" and "CIBERSORT".
 #' @param QN Quantile normalization of input mixture (default = TRUE)
 #' @param perm No. permutations; set to >=100 to calculate p-values (default = 100)
-#' @param kcdf By default, kcdf="Gaussian" which is suitable when input expression values are continuous,
-#' such as microarray fluorescent units in logarithmic scale, RNA-seq log-CPMs, log-RPKMs or log-TPMs.
-#' When input expression values are integer counts, such as those derived from RNA-seq experiments,
-#' then this argument should be set to kcdf="Poisson".
+#' @importFrom  GSVA ssgseaParam
 #' @importFrom  GSVA gsva
 #' @importFrom preprocessCore normalize.quantiles
 #' @importFrom e1071 svm
@@ -459,14 +457,15 @@ CIBERSORT <- function(sig_matrix, mixture_file, perm=0, QN=TRUE){
 #'
 #' #perform the exp2cell method. Method must be one of "xCell","ssGSEA" and "CIBERSORT".
 #' cellmatrix<-exp2cell(exp=exp.example,method="ssGSEA") #cell abundance matrix
-exp2cell <- function(exp,method="xCell",perm=100,QN=TRUE,kcdf=c("Gaussian", "Poisson", "none")) {
+exp2cell <- function(exp,method="xCell",perm=100,QN=TRUE) {
   if (method=="xCell") {
     ## requireNamespace("xCell")|| stop("package xCell is required,please install package xCell")
     cellmatrix<-xCellAnalysis(exp)
     cellmatrix<-cellmatrix[1:64,]
   }else if (method=="ssGSEA") {
     ## requireNamespace("GSVA")|| stop("package GSVA is required,please install package GSVA")
-    cellmatrix<-gsva(as.matrix(exp),immunelist,method='ssgsea',kcdf='Gaussian',abs.ranking=TRUE)
+    expr<-ssgseaParam(as.matrix(exp),immunelist)
+    cellmatrix<-gsva(expr)
   }else if (method=="CIBERSORT"){
     lm22path<-system.file('extdata', 'LM22.txt', package = 'SMDIC')
     cellmatrix_pre<-CIBERSORT(lm22path,exp,perm = perm,QN = QN)

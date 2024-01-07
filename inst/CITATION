@@ -1,0 +1,17 @@
+citHeader("Please cite Jiang Y (2021) for using SMDIC.")
+
+
+bibentry(
+  "Article",
+  title  = "Identification of Somatic Mutation-Driven Immune Cells by Integrating Genomic and Transcriptome Data",
+  author = "Ying Jiang，Baotong Zheng，Yang Yang，Xiangmei Li，Junwei Han",
+  year = 2021,
+  number  = "9",
+  pages   = "715275",
+  PMID    = "34368166",
+  journal = "Frontiers in Cell and Developmental Biology",
+  doi = "10.3389/fcell.2021.715275",
+textVersion = paste("Jiang, Y. ,  Zheng, B. ,  Yang, Y. ,  Li, X. , &  Han, J.",
+                             "Identification of Somatic Mutation-Driven Immune Cells by Integrating Genomic and Transcriptome Data.",
+                             "Frontiers in Cell and Developmental Biology 9(2021):715275.")
+         )

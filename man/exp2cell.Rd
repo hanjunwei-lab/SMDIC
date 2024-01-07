@@ -4,13 +4,7 @@
 \alias{exp2cell}
 \title{exp2cell}
 \usage{
-exp2cell(
-  exp,
-  method = "xCell",
-  perm = 100,
-  QN = TRUE,
-  kcdf = c("Gaussian", "Poisson", "none")
-)
+exp2cell(exp, method = "xCell", perm = 100, QN = TRUE)
 }
 \arguments{
 \item{exp}{The gene expression data set. A matrix with row names as symbols and columns as samples.
@@ -21,11 +15,6 @@ Gene expression profiles were used to quantify cell abundance matrix.}
 \item{perm}{No. permutations; set to >=100 to calculate p-values (default = 100)}
 
 \item{QN}{Quantile normalization of input mixture (default = TRUE)}
-
-\item{kcdf}{By default, kcdf="Gaussian" which is suitable when input expression values are continuous,
-such as microarray fluorescent units in logarithmic scale, RNA-seq log-CPMs, log-RPKMs or log-TPMs.
-When input expression values are integer counts, such as those derived from RNA-seq experiments,
-then this argument should be set to kcdf="Poisson".}
 }
 \value{
 Cell abundance matrix.
