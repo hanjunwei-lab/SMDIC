@@ -8,6 +8,8 @@ Description: A computing tool is developed to automated identify somatic mutatio
 License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: true
+URL: https://github.com/hanjunwei-lab/SMDIC
+BugReports: https://github.com/hanjunwei-lab/SMDIC/issues
 RoxygenNote: 7.2.3
 Depends: R (>= 4.3.0)
 biocViews:
