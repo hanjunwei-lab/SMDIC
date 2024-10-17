@@ -6,4 +6,4 @@
 #' @import survminer
 #' @import backports
 #' @docType package
-NULL
+"_PACKAGE"

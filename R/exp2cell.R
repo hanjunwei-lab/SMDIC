@@ -18,12 +18,12 @@ rawEnrichmentAnalysis <- function(expr, signatures, genes, parallel.sz = 4, para
 
   # Run ssGSEA analysis for the ranked gene expression dataset
   if(packageVersion("GSVA") >= "1.50.0") {
-    exprs <- GSVA::ssgseaParam(expr, signatures, 
+    exprs <- GSVA::ssgseaParam(expr, signatures,
                          normalize = FALSE)
     scores <- GSVA::gsva(exprs)
-    
+
   } else {
-    exprs <- GSVA::ssgseaParam(expr, signatures, 
+    exprs <- GSVA::ssgseaParam(expr, signatures,
                          normalize = FALSE)
     scores <- GSVA::gsva(exprs)
   }
@@ -443,6 +443,7 @@ CIBERSORT <- function(sig_matrix, mixture_file, perm=0, QN=TRUE){
 #' @importFrom pracma lsqlincon
 #' @importFrom stats cor
 #' @importFrom stats sd
+#' @importFrom stats var
 #' @importFrom utils read.table
 #' @importFrom utils packageVersion
 #' @importFrom stats aggregate
@@ -464,7 +465,8 @@ exp2cell <- function(exp,method="xCell",perm=100,QN=TRUE) {
     cellmatrix<-cellmatrix[1:64,]
   }else if (method=="ssGSEA") {
     ## requireNamespace("GSVA")|| stop("package GSVA is required,please install package GSVA")
-    expr<-ssgseaParam(as.matrix(exp),immunelist)
+    exp <- exp[apply(exp, 1, var) > 0, ]
+    expr<-ssgseaParam(as.matrix(exp),immunelist,minSize=2)
     cellmatrix<-gsva(expr)
   }else if (method=="CIBERSORT"){
     lm22path<-system.file('extdata', 'LM22.txt', package = 'SMDIC')

@@ -5,7 +5,7 @@
 #' @format A list
 #' @references
 #' Bindea G, Mlecnik B, Tosolini M, Kirilovsky A, Waldner M, Obenauf AC, et al. Spatiotemporal dynamics of intratumoral immune cells reveal the immune landscape in human cancer. Immunity. 2013;39:782–95.
-"immunelist"
+'immunelist'
 
 #' A data.frame of 64 immune cells name from xCell method
 #'
@@ -14,7 +14,7 @@
 #' @format A data.frame with 64 rows and 2 column
 #' @references
 #' Aran D , Hu Z , Butte A J . xCell: digitally portraying the tissue cellular heterogeneity landscape[J]. Genome Biology, 2017, 18(1):220.
-"cell64"
+'cell64'
 
 #' A data.frame of 24 immune cells name from Bindea et al
 #'
@@ -23,7 +23,7 @@
 #' @format A data.frame with 24 rows and 2 column
 #' @references
 #' Bindea G, Mlecnik B, Tosolini M, Kirilovsky A, Waldner M, Obenauf AC, et al. Spatiotemporal dynamics of intratumoral immune cells reveal the immune landscape in human cancer. Immunity. 2013;39:782–95.
-"cell24"
+'cell24'
 
 #' @title xCell datasets
 #' @description xCell datasets. It's a built-in data.

@@ -2,6 +2,7 @@
 % Please edit documentation in R/SMDIC-package.R
 \docType{package}
 \name{SMDIC-package}
+\alias{SMDIC}
 \alias{SMDIC-package}
 \title{Identification of somatic mutation-driven immune cells}
 \description{
